@@ -38,4 +38,17 @@ public class HttpcontrollerTest {
 		return "delete 요청" + m.getId() + ", " + m.getUsername();
 	}
 	
+	private static final String TAG = "HttpcontrollerTest ";
+	@GetMapping("/test/lombok")
+	public String lombokTest() {
+		// builder 장점
+		// 객체에 값을 넣을때 순서를 지키지 않아도 된다
+		// 객체 값 순서를 헷갈려서 객체의 값을 잘못 넣는 실수하는 것을 방지
+		Member m = Member.builder().username("user").password("1234").email("email").build();
+		System.out.println(TAG + "getter: " + m.getId());
+		m.setId(500);
+		System.out.println(TAG + "setter: " + m.getId());
+		return "lombok test ";
+	}
+	
 }
