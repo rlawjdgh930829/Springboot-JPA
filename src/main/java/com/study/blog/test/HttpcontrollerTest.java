@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+// @RestController로 설정하면
+// 리턴 값 자체를 리턴해줌
 @RestController
 public class HttpcontrollerTest {
 	
