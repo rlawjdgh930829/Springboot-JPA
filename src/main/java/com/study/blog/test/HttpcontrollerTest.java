@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 // @RestController로 설정하면
-// 리턴 값 자체를 리턴해줌
+// http파일이 아니라 data를 리턴 해주는 controller
 @RestController
 public class HttpcontrollerTest {
 	
