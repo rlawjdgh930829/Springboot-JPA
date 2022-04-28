@@ -3,14 +3,20 @@ package com.study.blog.test;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.study.blog.model.RoleType;
@@ -61,6 +67,37 @@ public class DummyController {
 		Page<User> pagingUser = userRepository.findAll(pageable);
 		List<User> users = pagingUser.getContent();
 		return users;
+	}
+	
+	@Transactional // 메소드 종료시에 자동으로 commit
+	@PutMapping("/dummy/user/{id}")
+	public User updateUser(@PathVariable int id, @RequestBody User requestUser) { // json 데이터를 받기 위해 @RequestBody를 사용
+		System.out.println("id: " + id);
+		System.out.println("password: " + requestUser.getPassword());
+		System.out.println("email: " + requestUser.getEmail());
+		
+		User user = userRepository.findById(id).orElseThrow(() -> {
+			return new IllegalArgumentException("해당 유저는 없습니다. id: " + id);
+		});
+		user.setPassword(requestUser.getPassword());
+		user.setEmail(requestUser.getEmail());
+		// Dirty Checking
+		// JPA에서는 트랜잭션이 끝나는 시점에 변화가 있는 모든 엔티티 객체를 데이터베이스에 자동으로 반영
+		
+		// save메소드는 id를 전달하면 해당 id에 대한 데이터를 update를 하고
+		// id를 전달하지 않거나 존재하지 않으면 insert
+		//userRepository.save(user);
+		return user;
+	}
+	
+	@DeleteMapping("dummy/user/{id}")
+	public String delete(@PathVariable int id) {
+		try {
+			userRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			return "삭제에 실패하였습니다. DB에 없습니다. id: " + id;
+		}
+		return "삭제되었습니다. id: " + id;
 	}
 
 }
