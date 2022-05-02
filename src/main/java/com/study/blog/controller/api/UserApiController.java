@@ -1,5 +1,7 @@
 package com.study.blog.controller.api;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +19,7 @@ public class UserApiController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping("/api/user")
+	@PostMapping("/auth/joinProc")
 	public ResponseDTO<Integer> save(@RequestBody User user) {
 		System.out.println("UserApiController save메소드 호출됨");
 		user.setRole(RoleType.USER);

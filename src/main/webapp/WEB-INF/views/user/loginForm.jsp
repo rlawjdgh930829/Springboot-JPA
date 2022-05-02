@@ -4,21 +4,21 @@
 
 	<div class="container">
 	
-		<form action="/action_page.php">
+		<form action="#" method="post">
 			<div class="form-group">
 				<label for="username">Username:</label>
-				<input type="text" class="form-control" placeholder="Enter username" id="username">
+				<input type="text" class="form-control" placeholder="Enter username" id="username" name="username">
 			</div>
 			<div class="form-group">
 				<label for="password">Password:</label>
-				<input type="password" class="form-control" placeholder="Enter password" id="password">
+				<input type="password" class="form-control" placeholder="Enter password" id="password" name="password">
 			</div>
 			<div class="form-group form-check">
 				<label class="form-check-label">
-				<input class="form-check-input" type="checkbox"> Remember me
+				<input class="form-check-input" type="checkbox" name="remember"> Remember me
 				</label>
 			</div>
-			<button type="submit" class="btn btn-primary">Submit</button>
+			<button id="btn-login" class="btn btn-primary">Submit</button>
 		</form>
 		
 	</div>
