@@ -39,7 +39,6 @@ public class Board {
 	@Lob // 대용량 데이터를 다룰 때 사용
 	private String content;
 	
-	@ColumnDefault("0")
 	private int count;
 	
 	@CreationTimestamp
